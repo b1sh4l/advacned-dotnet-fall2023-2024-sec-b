@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Projects";
+}
+<style>
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+        footer ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+
+            footer ul li a {
+                text-decoration: none;
+                color: #007bff;
+            }
+
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+<main>
+    <h1>Course and Project Information</h1>
+
+    <table>
+        <tr>
+            <th>Course Name</th>
+            <th>Project Name</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>C#</td>
+            <td>CoffeeShopManagementSystem</td>
+            <td>A basic coffee shop management system developed using C# and .NET. The system allows users to manage menu items, orders, and customer information in a coffee shop.</td>
+        </tr>
+        <tr>
+            <td>Web Technologies</td>
+            <td>Renting-Borrowing Services</td>
+            <td>A web-based platform for renting and borrowing various items and services within a community. Users can list items for rent and borrow items from others.</td>
+        </tr>
+        <tr>
+            <td>Advanced Database Management System</td>
+            <td>Management System</td>
+            <td>A comprehensive database management system project that includes features like data modeling, query optimization, and data security. It serves as a management tool for handling large datasets.</td>
+        </tr>
+        <tr>
+            <td>Computer Graphics</td>
+            <td>Sidescrolling 2D Game</td>
+            <td>A 2D sidescrolling game developed using computer graphics techniques. Players control a character navigating through various levels, collecting items, and overcoming obstacles.</td>
+        </tr>
+    </table>
+
+    <footer>
+        <ul>
+            <li>@Html.ActionLink("Home", "Index")</li>
+            <li>@Html.ActionLink("Education", "Education")</li>
+            <li>@Html.ActionLink("Personal Info", "PersonalInfo")</li>
+            <li>@Html.ActionLink("References", "References")</li>
+        </ul>
+    </footer>
+</main>

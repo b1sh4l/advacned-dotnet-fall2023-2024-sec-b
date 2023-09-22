@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "PersonalInfo";
+}<style>
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+        footer ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+
+            footer ul li a {
+                text-decoration: none;
+                color: #007bff;
+            }
+
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+<main>
+    <h2>Personal Info</h2>
+    <ul>
+        <img src="~/Images/profile.jpg" alt="Profile Picture" , width="200" height="200">
+        <li>
+            <strong>Contact Information:</strong>
+            <ul>
+                <li>Email: bishal12345@email.com</li>
+                <li>Phone: +880 1234569870</li>
+                <li>Address: 123 Main Street, Dhaka, Bangladesh</li>
+            </ul>
+        </li>
+        <li><strong>Date of Birth:</strong> January 1, 2000</li>
+        <li><strong>Gender:</strong> Male</li>
+        <li><strong>Nationality:</strong> Bangladesh</li>
+        <li><strong>Biography:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget justo vitae dolor hendrerit rutrum eu sed massa.</li>
+        <li>
+            <strong>Education:</strong>
+            <ul>
+                <li>B.Sc. in Computer Science - University of Example (2020-2024)</li>
+                <li>M.Sc. in Information Technology - Example Institute (2025-2026)</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Professional Experience:</strong>
+            <ul>
+                <li>Software Engineer - XYZ Corporation (2024-Present)</li>
+            </ul>
+        </li>
+        <li><strong>Skills:</strong> C#, JavaScript, HTML/CSS, SQL, Project Management</li>
+        <li><strong>Hobbies and Interests:</strong> Traveling, Photography, Reading</li>
+        <li><strong>Languages:</strong> English (Fluent), Bangla (Basic)</li>
+        <li>
+            <strong>Social Media:</strong>
+            <ul>
+                <li><a href="https://www.linkedin.com/in/sudarshan-saha-bishal-476158ba/">LinkedIn</a></li>
+                <li><a href="https://github.com/b1sh4l">GitHub</a></li>
+            </ul>
+        </li>
+
+
+    </ul>
+
+    <footer>
+        <ul>
+            <li>@Html.ActionLink("Home", "Index")</li>
+            <li>@Html.ActionLink("Education", "Education")</li>
+            <li>@Html.ActionLink("Projects", "Projects")</li>
+            <li>@Html.ActionLink("References", "References")</li>
+        </ul>
+    </footer>
+
+</main>
+

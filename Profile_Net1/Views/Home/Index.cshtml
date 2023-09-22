@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+        footer ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+
+            footer ul li a {
+                text-decoration: none;
+                color: #007bff;
+            }
+
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+
+<main>
+    <h1>User Information</h1>
+    <ul>
+        <li><strong>Name:</strong> Sudarshan Saha Bishal</li>
+        <li><strong>ID:</strong> 20-42915-1</li>
+        <li><strong>E-mail:</strong> sudarshansaha@gmail.com</li>
+        <li><strong>Contact No:</strong> +880 1234569870</li>
+    </ul>
+
+    <footer>
+        <ul>
+            <li>@Html.ActionLink("Education", "Education")</li>
+            <li>@Html.ActionLink("Projects", "Projects")</li>
+            <li>@Html.ActionLink("Personal Info", "PersonalInfo")</li>
+            <li>@Html.ActionLink("References", "References")</li>
+        </ul>
+    </footer>
+</main>
+
