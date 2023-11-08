@@ -1,0 +1,36 @@
+﻿@model List<ZeroHunger42915.Models.FoodCollectionRequest>
+
+@if (Model != null && Model.Any())
+{
+    <table>
+        <tr>
+            <th>Request ID</th>
+            <th>Restaurant Name</th>
+            <th>Max Preservation Time</th>
+            <th>Is Assigned</th>
+            <th>Is Completed</th>
+            <th>Delete</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RequestID</td>
+                <td>@item.RestaurantName</td>
+                <td>@item.MaxPreservationTime</td>
+                <td>@item.IsAssigned</td>
+                <td>@item.IsCompleted</td>
+                <td>
+                    <form method="post" action="@Url.Action("Delete", "Restaurant")">
+                        <input type="hidden" name="requestId" value="@item.RequestID" />
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No results found.</p>
+}

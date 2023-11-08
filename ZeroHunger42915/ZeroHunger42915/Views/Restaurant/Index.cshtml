@@ -1,0 +1,47 @@
+﻿@model List<ZeroHunger42915.Models.FoodCollectionRequest>
+
+@{
+    ViewBag.Title = "Food Collection Requests";
+}
+
+<h2>Food Collection Requests</h2>
+
+@using (Html.BeginForm("CreateFoodRequest", "Restaurant", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Create Food Collection Request</h4>
+        <hr />
+        <div>
+            <label for="RestaurantName">Restaurant Name</label>
+            <input type="text" id="RestaurantName" name="RestaurantName">
+        </div>
+        <div>
+            <label for="MaxPreservationTime">Max Preservation Time</label>
+            <input type="datetime-local" id="MaxPreservationTime" name="MaxPreservationTime">
+        </div>
+        <input type="submit" value="Create" />
+    </div>
+}
+
+<br />
+
+@using (Html.BeginForm("Search", "Restaurant", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Delete Food Collection Request</h4>
+        <hr />
+        <div>
+            @Html.Label("Search by Restaurant Name:")
+            @Html.TextBox("searchTerm")
+            <input type="submit" value="Search" />
+        </div>
+    </div>
+}
+
+
+@if (ViewBag.IsSearchPerformed != null && (bool)ViewBag.IsSearchPerformed)
+{
+    @Html.Partial("_Search")
+}

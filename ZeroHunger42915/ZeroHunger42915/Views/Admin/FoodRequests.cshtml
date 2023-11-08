@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ZeroHunger42915.Models.FoodCollectionRequest>
+
+@{
+    ViewBag.Title = "FoodRequests";
+}
+
+<h2>FoodRequests</h2>
+
+<table>
+    <tr>
+        <th>Request ID</th>
+        <th>Restaurant Name</th>
+        <th>Max Preservation Time</th>
+        <th>Is Assigned</th>
+        <th>Is Completed</th>
+        <th>Assigned Employee</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.RequestID</td>
+            <td>@item.RestaurantName</td>
+            <td>@item.MaxPreservationTime</td>
+            <td>@item.IsAssigned</td>
+            <td>@item.IsCompleted</td>
+            <td>
+                @if (item.AssignedTasks != null && item.AssignedTasks.Any())
+                {
+                    <ul>
+                        @foreach (var task in item.AssignedTasks)
+                        {
+                            <li>@task.Employee.FullName</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>No assigned employees</span>
+                }
+            </td>
+            <td>
+                @if (!item.IsAssigned.HasValue || !item.IsAssigned.Value)
+                {
+                    <form method="post" action="@Url.Action("AssignEmployee", "Admin")">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="requestId" value="@item.RequestID" />
+                        <label for="employeeId">Select Employee:</label>
+                        <select name="employeeId" required>
+                            <option value="">-- Select Employee --</option>
+                            @foreach (var employee in ViewBag.Employees)
+                            {
+                                <option value="@employee.EmployeeID">@employee.FullName</option>
+                            }
+                        </select>
+                        <input type="submit" value="Assign Employee" />
+                    </form>
+                }
+                else
+                {
+                    <span>Assigned</span>
+                }
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "SignIn";
+    Layout = null;
+}
+
+<h2>
+    @*@ViewBag.Uname
+        @ViewBag.Pass*@
+    @if (Model != null)
+    {@Model.Username
+    @Model.Password
+}
+</h2>
+<h2>Login</h2>
+<form action="" method="post">
+    <input type="text" class="form-control" name="Username" placeholder="Username" /><br />
+    <input type="password" class="form-control" name="Password" placeholder="Password" /><br />
+    <input type="submit" value="Login" class="btn btn-danger" />
+</form>

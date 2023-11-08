@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssignedTasks">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="datetime" />
+          <Property Name="CompletedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodCollectionRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MaxPreservationTime" Type="datetime" Nullable="false" />
+          <Property Name="IsAssigned" Type="bit" />
+          <Property Name="IsCompleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK__AssignedT__Emplo__4316F928">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="AssignedTasks" Type="Self.AssignedTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="AssignedTasks">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AssignedT__Reque__4222D4EF">
+          <End Role="FoodCollectionRequests" Type="Self.FoodCollectionRequests" Multiplicity="1" />
+          <End Role="AssignedTasks" Type="Self.AssignedTasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodCollectionRequests">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="AssignedTasks">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZeroHungerModelStoreContainer">
+          <EntitySet Name="AssignedTasks" EntityType="Self.AssignedTasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodCollectionRequests" EntityType="Self.FoodCollectionRequests" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AssignedT__Emplo__4316F928" Association="Self.FK__AssignedT__Emplo__4316F928">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="AssignedTasks" EntitySet="AssignedTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignedT__Reque__4222D4EF" Association="Self.FK__AssignedT__Reque__4222D4EF">
+            <End Role="FoodCollectionRequests" EntitySet="FoodCollectionRequests" />
+            <End Role="AssignedTasks" EntitySet="AssignedTasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssignedTask">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CompletedDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__AssignedT__Emplo__4316F928" FromRole="AssignedTasks" ToRole="Employees" />
+          <NavigationProperty Name="FoodCollectionRequest" Relationship="Self.FK__AssignedT__Reque__4222D4EF" FromRole="AssignedTasks" ToRole="FoodCollectionRequests" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AssignedTasks" Relationship="Self.FK__AssignedT__Emplo__4316F928" FromRole="Employees" ToRole="AssignedTasks" />
+        </EntityType>
+        <EntityType Name="FoodCollectionRequest">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxPreservationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsAssigned" Type="Boolean" />
+          <Property Name="IsCompleted" Type="Boolean" />
+          <NavigationProperty Name="AssignedTasks" Relationship="Self.FK__AssignedT__Reque__4222D4EF" FromRole="FoodCollectionRequests" ToRole="AssignedTasks" />
+        </EntityType>
+        <Association Name="FK__AssignedT__Emplo__4316F928">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="AssignedTasks" Type="Self.AssignedTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="AssignedTasks">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AssignedT__Reque__4222D4EF">
+          <End Role="FoodCollectionRequests" Type="Self.FoodCollectionRequest" Multiplicity="1" />
+          <End Role="AssignedTasks" Type="Self.AssignedTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodCollectionRequests">
+              <PropertyRef Name="RequestID" />
+            </Principal>
+            <Dependent Role="AssignedTasks">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ZeroHungerContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssignedTasks" EntityType="Self.AssignedTask" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="FoodCollectionRequests" EntityType="Self.FoodCollectionRequest" />
+          <AssociationSet Name="FK__AssignedT__Emplo__4316F928" Association="Self.FK__AssignedT__Emplo__4316F928">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="AssignedTasks" EntitySet="AssignedTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignedT__Reque__4222D4EF" Association="Self.FK__AssignedT__Reque__4222D4EF">
+            <End Role="FoodCollectionRequests" EntitySet="FoodCollectionRequests" />
+            <End Role="AssignedTasks" EntitySet="AssignedTasks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ZeroHungerModelStoreContainer" CdmEntityContainer="ZeroHungerContext">
+          <EntitySetMapping Name="AssignedTasks">
+            <EntityTypeMapping TypeName="ZeroHungerModel.AssignedTask">
+              <MappingFragment StoreEntitySet="AssignedTasks">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="AssignedDateTime" ColumnName="AssignedDateTime" />
+                <ScalarProperty Name="CompletedDateTime" ColumnName="CompletedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ZeroHungerModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodCollectionRequests">
+            <EntityTypeMapping TypeName="ZeroHungerModel.FoodCollectionRequest">
+              <MappingFragment StoreEntitySet="FoodCollectionRequests">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="MaxPreservationTime" ColumnName="MaxPreservationTime" />
+                <ScalarProperty Name="IsAssigned" ColumnName="IsAssigned" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

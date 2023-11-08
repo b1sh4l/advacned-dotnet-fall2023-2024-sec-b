@@ -1,0 +1,11 @@
+﻿@model ZeroHunger42915.Models.Employee
+@{
+    ViewBag.Title = "Employee Details and Assigned Tasks";
+}
+
+<h2>Employee Details</h2>
+@Html.Partial("_EmployeeDetails", Model)
+
+<h2>Assigned Tasks</h2>
+@Html.Partial("AssignedTasks", Model.AssignedTasks)
+
