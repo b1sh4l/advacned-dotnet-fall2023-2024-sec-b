@@ -1,11 +1,22 @@
-﻿@model ZeroHunger42915.Models.Employee
-@{
-    ViewBag.Title = "Employee Details and Assigned Tasks";
-}
+﻿@model ZeroHunger42915.ViewModel.EmployeeTasksViewModel
 
-<h2>Employee Details</h2>
-@Html.Partial("_EmployeeDetails", Model)
 
-<h2>Assigned Tasks</h2>
-@Html.Partial("AssignedTasks", Model.AssignedTasks)
+<div style="text-align: center;">
+    <h2>Employee Details</h2>
+    @Html.Partial("_EmployeeDetails", Model.Employee)
+</div>
 
+<br />
+<br />
+
+<div style="text-align: center;">
+    <h2>Assigned Tasks</h2>
+    @Html.Partial("_AssignedTasks", Model.AssignedTasks)
+</div>
+
+
+
+<br />
+<br />
+
+<a href="@Url.Action("Logout", "Employee")">Logout</a>

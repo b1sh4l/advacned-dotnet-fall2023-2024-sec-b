@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ZeroHunger42915.Models.Employee
+
+@{
     ViewBag.Title = "Index";
 }
 
@@ -13,10 +15,14 @@
         <input type="number" id="employeeId" name="employeeId" required>
     </div>
 
+    <br />
+
     <div>
         <label for="employeeName">Name:</label>
         <input type="text" id="employeeName" name="employeeName" required>
     </div>
+
+    <br />
 
     <input type="submit" value="Login" />
 }

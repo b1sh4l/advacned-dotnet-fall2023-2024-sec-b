@@ -6,14 +6,13 @@
 
 <h2>FoodRequests</h2>
 
-<table>
+<table align="center" style="width: 100%;">
     <tr>
         <th>Request ID</th>
         <th>Restaurant Name</th>
         <th>Max Preservation Time</th>
-        <th>Is Assigned</th>
-        <th>Is Completed</th>
         <th>Assigned Employee</th>
+        <th>Completed</th>
         <th>Action</th>
     </tr>
     @foreach (var item in Model)
@@ -22,8 +21,6 @@
             <td>@item.RequestID</td>
             <td>@item.RestaurantName</td>
             <td>@item.MaxPreservationTime</td>
-            <td>@item.IsAssigned</td>
-            <td>@item.IsCompleted</td>
             <td>
                 @if (item.AssignedTasks != null && item.AssignedTasks.Any())
                 {
@@ -36,9 +33,10 @@
                 }
                 else
                 {
-                    <span>No assigned employees</span>
+                    <span>Not Assigned Yet</span>
                 }
             </td>
+            <td><span>@(item.IsCompleted.Value ? "Yes" : "No")</span> </td>
             <td>
                 @if (!item.IsAssigned.HasValue || !item.IsAssigned.Value)
                 {

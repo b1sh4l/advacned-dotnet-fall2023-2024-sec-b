@@ -1,15 +1,22 @@
-﻿
-@model ZeroHunger42915.Models.Employee
+﻿@model ZeroHunger42915.Models.Employee
 
-<table>
-    <tr>
-        <th>Employee ID</th>
-        <th>Full Name</th>
-        <th>Mobile No</th>
-    </tr>
-    <tr>
-        <td>@Model.EmployeeID</td>
-        <td>@Model.FullName</td>
-        <td>@Model.MobileNo</td>
-    </tr>
-</table>
+@if (Model != null)
+{
+    <table align="center" style="width: 80%;">
+        <tr>
+            <th>Employee ID</th>
+            <th>Full Name</th>
+            <th>Mobile No</th>
+        </tr>
+
+        <tr>
+            <td>@Model.EmployeeID</td>
+            <td>@Model.FullName</td>
+            <td>@Model.MobileNo</td>
+        </tr>
+    </table>
+}
+else
+{
+    <p>No results found.</p>
+}

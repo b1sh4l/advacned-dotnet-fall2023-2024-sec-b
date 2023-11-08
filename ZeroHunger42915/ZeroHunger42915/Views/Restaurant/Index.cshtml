@@ -4,7 +4,6 @@
     ViewBag.Title = "Food Collection Requests";
 }
 
-<h2>Food Collection Requests</h2>
 
 @using (Html.BeginForm("CreateFoodRequest", "Restaurant", FormMethod.Post))
 {
@@ -14,11 +13,12 @@
         <hr />
         <div>
             <label for="RestaurantName">Restaurant Name</label>
-            <input type="text" id="RestaurantName" name="RestaurantName">
+            <input required type="text" id="RestaurantName" name="RestaurantName">
         </div>
+        <br />
         <div>
             <label for="MaxPreservationTime">Max Preservation Time</label>
-            <input type="datetime-local" id="MaxPreservationTime" name="MaxPreservationTime">
+            <input required type="datetime-local" id="MaxPreservationTime" name="MaxPreservationTime">
         </div>
         <input type="submit" value="Create" />
     </div>
@@ -34,11 +34,13 @@
         <hr />
         <div>
             @Html.Label("Search by Restaurant Name:")
-            @Html.TextBox("searchTerm")
+            @Html.TextBox("searchTerm", null, new { @required = "required" })
             <input type="submit" value="Search" />
         </div>
     </div>
 }
+
+<br />
 
 
 @if (ViewBag.IsSearchPerformed != null && (bool)ViewBag.IsSearchPerformed)

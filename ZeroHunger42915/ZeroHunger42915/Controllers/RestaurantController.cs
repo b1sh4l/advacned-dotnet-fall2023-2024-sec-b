@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ZeroHunger42915.Models;
-using System.Diagnostics;
+using ZeroHunger42915.DTO;
 
 namespace ZeroHunger42915.Controllers
 {
@@ -13,47 +10,29 @@ namespace ZeroHunger42915.Controllers
     {
         private ZeroHungerContext db = new ZeroHungerContext();
 
-        // Index view for a restaurant to view and create food collection requests
         public ActionResult Index()
         {
             var foodRequests = db.FoodCollectionRequests.ToList();
             return View(foodRequests);
         }
 
-        //[httppost]
-        //public actionresult createfoodrequest(foodcollectionrequest request)
-        //{
-        //    if (modelstate.isvalid)
-        //    {
-        //        // proceed to save the data if the model is valid
-        //        db.foodcollectionrequests.add(request);
-        //        db.savechanges(); // save the changes to the database
-        //        return redirecttoaction("index");
-        //    }
-        //    return view();
-        //}
         [HttpPost]
-        public ActionResult CreateFoodRequest(FoodCollectionRequest request)
+        public ActionResult CreateFoodRequest(FoodCollectionRequestDTO request)
         {
             if (ModelState.IsValid)
             {
-                request.IsAssigned = false; 
-                request.IsCompleted = false; 
+                var newRequest = new FoodCollectionRequest
+                {
+                    RestaurantName = request.RestaurantName,
+                    MaxPreservationTime = request.MaxPreservationTime,
+                    IsAssigned = request.IsAssigned,
+                    IsCompleted = request.IsCompleted
+                };
 
                 using (var db = new ZeroHungerContext())
                 {
-                    db.FoodCollectionRequests.Add(request);
-
+                    db.FoodCollectionRequests.Add(newRequest);
                     db.SaveChanges();
-
-                    //try
-                    //{
-                    //    db.SaveChanges();
-                    //}
-                    //catch(DbEntityValidationException e)
-                    //{
-                    //    Console.WriteLine(e);
-                    //}
                 }
 
                 return RedirectToAction("Index", "Restaurant");
@@ -62,20 +41,19 @@ namespace ZeroHunger42915.Controllers
             return View(request);
         }
 
-
         [HttpPost]
-        public ActionResult Search(string searchTerm, int requestId = 0)
+        public ActionResult Search(string searchTerm)
         {
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 var foodRequests = db.FoodCollectionRequests
                     .Where(r => r.RestaurantName.Contains(searchTerm))
                     .ToList();
+
                 ViewBag.IsSearchPerformed = true;
-                //Console.WriteLine(foodRequests);
                 return View("Index", foodRequests);
             }
-            
+
             return RedirectToAction("Index");
         }
 
@@ -90,10 +68,8 @@ namespace ZeroHunger42915.Controllers
                 {
                     db.FoodCollectionRequests.Remove(request);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
                 }
 
-               
                 return RedirectToAction("Index");
             }
         }

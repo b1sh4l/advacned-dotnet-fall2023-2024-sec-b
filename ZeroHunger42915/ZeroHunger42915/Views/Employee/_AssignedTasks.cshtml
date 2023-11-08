@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ZeroHunger42915.Models.AssignedTask>
+
+
+<table align="center" style="width: 100%;">
+    <tr>
+        <th>Task ID</th>
+        <th>Request ID</th>
+        <th>Assigned Date</th>
+        <th>Completed Date</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var task in Model)
+    {
+        <tr>
+            <td>@task.TaskID</td>
+            <td>@task.RequestID</td>
+            <td>@task.AssignedDateTime</td>
+            <td>@(task.CompletedDateTime.HasValue ? task.CompletedDateTime.ToString() : "Not completed yet")</td>
+            <td>
+                @if (!task.CompletedDateTime.HasValue)
+                {
+                    <form method="post" action="@Url.Action("UpdateAssignedTaskCompletion", "Employee")">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="taskId" value="@task.TaskID" />
+                        <input type="submit" value="Complete Task" />
+                    </form>
+                }
+                else
+                {
+                    <span>Task Completed</span>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+

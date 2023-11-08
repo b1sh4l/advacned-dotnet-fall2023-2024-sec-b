@@ -2,13 +2,13 @@
 
 @if (Model != null && Model.Any())
 {
-    <table>
+    <table align="center" style="width: 100%;">
         <tr>
             <th>Request ID</th>
             <th>Restaurant Name</th>
             <th>Max Preservation Time</th>
-            <th>Is Assigned</th>
-            <th>Is Completed</th>
+            <th>Assigned</th>
+            <th>Completed</th>
             <th>Delete</th>
         </tr>
 
@@ -18,8 +18,8 @@
                 <td>@item.RequestID</td>
                 <td>@item.RestaurantName</td>
                 <td>@item.MaxPreservationTime</td>
-                <td>@item.IsAssigned</td>
-                <td>@item.IsCompleted</td>
+                <td><span>@(item.IsAssigned.Value ? "Yes" : "No")</span> </td>
+                <td><span>@(item.IsCompleted.Value ? "Yes" : "No")</span> </td>
                 <td>
                     <form method="post" action="@Url.Action("Delete", "Restaurant")">
                         <input type="hidden" name="requestId" value="@item.RequestID" />

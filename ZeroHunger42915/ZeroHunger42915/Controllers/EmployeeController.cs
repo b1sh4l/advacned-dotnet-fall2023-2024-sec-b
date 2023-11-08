@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ZeroHunger42915.Models;
 using System.Data.Entity;
 using System.Web.Security;
+using ZeroHunger42915.ViewModel;
 
 namespace ZeroHunger42915.Controllers
 {
@@ -22,18 +23,18 @@ namespace ZeroHunger42915.Controllers
         [HttpPost]
         public ActionResult Index(int employeeId, string employeeName)
         {
-            // Check employee credentials against a database or some other authentication logic
+            
 
             var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == employeeId && e.FullName == employeeName);
 
             if (employee != null)
             {
-                // If credentials are valid, redirect to the EmployeeTasks view
+               
                 return RedirectToAction("EmployeeTasks", new { employeeId });
             }
             else
             {
-                // If credentials are invalid, return to the login page with an error
+               
                 ModelState.AddModelError("", "Invalid employee ID or name.");
                 return View();
             }
@@ -42,20 +43,50 @@ namespace ZeroHunger42915.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Employee"); // Redirect to the login page or any desired page after logout
+            return RedirectToAction("Index", "Employee"); 
         }
 
-        public ActionResult EmployeeTasks(int employeeId = 2)
+        public ActionResult _AssignedTasks(int employeeId)
         {
             var tasks = db.AssignedTasks.Where(t => t.EmployeeID == employeeId).ToList();
-            return View("AssignedTasks", tasks);
+            return View("_AssignedTasks", tasks);
         }
 
-        public ActionResult EmployeeDetails(int employeeId)
+        public ActionResult _EmployeeDetails(int employeeId)
         {
             var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
-            return View(employee);
+            return View("_EmployeeDetails", employee);
         }
+
+        public ActionResult EmployeeTasks(int employeeId)
+        {
+            var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == employeeId);
+            var tasks = db.AssignedTasks.Where(t => t.EmployeeID == employeeId).ToList();
+
+            var viewModel = new EmployeeTasksViewModel
+            {
+                Employee = employee,
+                AssignedTasks = tasks
+            };
+
+            return View(viewModel);
+        }
+
+        //[HttpPost]
+        //public ActionResult EmployeeDetails(string employeeName, int employeeId)
+        //{
+        //    if (employeeId != 0)
+        //    {
+        //        var empDetails = db.Employees
+        //            .Where(r => r.EmployeeID == employeeId)
+        //            .ToList();
+        //        ViewBag.IsSearchPerformed = true;
+        //        //Console.WriteLine(foodRequests);
+        //        return View("Index", empDetails);
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
 
         [HttpPost]
         public ActionResult UpdateAssignedTaskCompletion(int taskId)
