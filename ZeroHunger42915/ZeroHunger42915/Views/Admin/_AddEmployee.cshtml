@@ -1,0 +1,20 @@
+﻿@model ZeroHunger42915.DTO.EmployeeDTO
+
+@using (Html.BeginForm("_AddEmployee", "Admin", FormMethod.Post, new { id = "addEmployeeForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div style="display: inline-block; margin-right: 10px;">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" value="@Model.FullName" required>
+        @Html.ValidationMessageFor(model => model.FullName)
+    </div>
+
+    <div style="display: inline-block; margin-right: 10px;">
+        <label for="mobileNo">Mobile No:</label>
+        <input type="text" id="mobileNo" name="mobileNo" value="@Model.MobileNo" required>
+        @Html.ValidationMessageFor(model => model.MobileNo)
+    </div>
+
+    <input type="submit" value="Add" />
+}

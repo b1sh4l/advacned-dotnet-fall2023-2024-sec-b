@@ -1,8 +1,25 @@
 ﻿@model IEnumerable<ZeroHunger42915.Models.FoodCollectionRequest>
 
+
 @{
     ViewBag.Title = "FoodRequests";
 }
+
+<h2>Employees</h2>
+<div style="text-align: center;"> 
+    @Html.Partial("_Employees", ViewBag.Employees as IEnumerable<ZeroHunger42915.Models.Employee>)
+</div>
+
+<br />
+<br />
+
+<h2>Add Employee</h2>
+<div style="text-align: center;">
+    @Html.Partial("_AddEmployee", new ZeroHunger42915.DTO.EmployeeDTO())
+</div>
+
+<br />
+<br />
 
 <h2>FoodRequests</h2>
 

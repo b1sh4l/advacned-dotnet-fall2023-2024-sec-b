@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<ZeroHunger42915.Models.Employee>
+
+<div style="text-align: center;">
+    <table align="center" style="width: 100%;">
+        <tr>
+            <th>Employee ID</th>
+            <th>Full Name</th>
+            <th>Mobile No</th>
+        </tr>
+
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.EmployeeID</td>
+                <td>@employee.FullName</td>
+                <td>@employee.MobileNo</td>
+            </tr>
+        }
+    </table>
+</div>
