@@ -19,4 +19,8 @@
 <br />
 <br />
 
-<a href="@Url.Action("Logout", "Employee")">Logout</a>
+<form method="post" action="@Url.Action("Logout", "Employee")">
+    @Html.AntiForgeryToken()
+
+    <input type="submit" value="Logout" class="logout-button" />
+</form>

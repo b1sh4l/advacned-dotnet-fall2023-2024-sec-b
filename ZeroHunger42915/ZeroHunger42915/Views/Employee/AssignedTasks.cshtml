@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<ZeroHunger42915.Models.AssignedTask>
 
+
+
 <h2>Assigned Tasks</h2>
 
 <table>
@@ -10,7 +12,7 @@
         <th>Completed Date</th>
         <th>Action</th>
     </tr>
-   
+
     @foreach (var task in Model)
     {
         <tr>
@@ -36,4 +38,4 @@
     }
 </table>
 
-<a href="@Url.Action("Logout", "Employee")">Logout</a>
+

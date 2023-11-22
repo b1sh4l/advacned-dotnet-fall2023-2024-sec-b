@@ -8,7 +8,7 @@ namespace ZeroHunger42915.Controllers
 {
     public class RestaurantController : Controller
     {
-        private ZeroHungerContext db = new ZeroHungerContext();
+        private readonly ZeroHungerContext db = new ZeroHungerContext();
 
         public ActionResult Index()
         {

@@ -1,28 +1,41 @@
 ﻿@model ZeroHunger42915.Models.Employee
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee Login";
 }
 
-<h2>Index</h2>
+
+
+<h2 align="center">Employee Login</h2>
+<br />
 
 @using (Html.BeginForm("Index", "Employee", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div>
+
+    <div align="center">
         <label for="employeeId">Employee ID:</label>
-        <input type="number" id="employeeId" name="employeeId" required>
+        @Html.TextBoxFor(model => model.EmployeeID, new { type = "number", required = "required" })
+
     </div>
 
     <br />
 
-    <div>
-        <label for="employeeName">Name:</label>
-        <input type="text" id="employeeName" name="employeeName" required>
+    <div align="center">
+        <label for="employeeName">Employee Name:</label>
+        @Html.TextBoxFor(model => model.FullName, new { required = "required" })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
     </div>
 
     <br />
+    <div align="center">
+        @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+    </div>
 
-    <input type="submit" value="Login" />
+    <div align="center">
+        <input align="center" type="submit" value="Login" />
+
+    </div>
+
 }

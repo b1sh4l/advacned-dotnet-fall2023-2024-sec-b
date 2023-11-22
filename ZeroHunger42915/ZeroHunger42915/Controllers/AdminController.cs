@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ZeroHunger42915.DTO;
 using ZeroHunger42915.Models;
+
 
 namespace ZeroHunger42915.Controllers
 {
     public class AdminController : Controller
     {
-        private ZeroHungerContext db = new ZeroHungerContext();
+        private readonly ZeroHungerContext db = new ZeroHungerContext();
 
         // GET: Admin
         public ActionResult FoodRequests()
@@ -69,16 +69,23 @@ namespace ZeroHunger42915.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult _AddEmployee(EmployeeDTO employeeDTO)
         {
+            if (db.Employees.Any(e => e.MobileNo == employeeDTO.MobileNo))
+            {
+                ModelState.AddModelError("MobileNo", "Mobile Number already exists.");
+            }
+
             if (ModelState.IsValid)
             {
+                var mapper = HttpContext.Application["Mapper"] as IMapper;
+                var employee = mapper.Map<EmployeeDTO, Employee>(employeeDTO);
 
-                var employee = new Employee
-                {
-                    EmployeeID = employeeDTO.EmployeeID,
-                    FullName = employeeDTO.FullName,
-                    MobileNo = employeeDTO.MobileNo,
+                //var employee = new Employee
+                //{
+                //    EmployeeID = employeeDTO.EmployeeID,
+                //    FullName = employeeDTO.FullName,
+                //    MobileNo = employeeDTO.MobileNo,
 
-                };
+                //};
 
 
                 db.Employees.Add(employee);
@@ -89,6 +96,19 @@ namespace ZeroHunger42915.Controllers
 
 
             return PartialView("_AddEmployee", employeeDTO);
+        }
+
+        public ActionResult DeleteEmployee(int employeeId)
+        {
+            var employee = db.Employees.Find(employeeId);
+
+            if (employee != null)
+            {
+                db.Employees.Remove(employee);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("FoodRequests");
         }
     }
 }

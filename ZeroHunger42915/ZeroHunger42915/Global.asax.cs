@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,15 @@ namespace ZeroHunger42915
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // AutoMapper configuration
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<DTO.EmployeeDTO, Models.Employee>();
+            });
+
+            var mapper = config.CreateMapper();
+            HttpContext.Current.Application["Mapper"] = mapper;
 
         }
     }

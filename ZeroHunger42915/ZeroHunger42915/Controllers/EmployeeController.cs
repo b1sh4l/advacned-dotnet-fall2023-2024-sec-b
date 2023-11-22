@@ -10,7 +10,7 @@ namespace ZeroHunger42915.Controllers
 {
     public class EmployeeController : Controller
     {
-        private ZeroHungerContext db = new ZeroHungerContext();
+        private readonly ZeroHungerContext db = new ZeroHungerContext();
 
         // GET: Employee
 
@@ -20,25 +20,52 @@ namespace ZeroHunger42915.Controllers
             return View();
         }
 
+        private bool CheckCredentials(int employeeId, string employeeName)
+        {
+            var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == employeeId && e.FullName == employeeName);
+            return employee != null;
+        }
+
         [HttpPost]
-        public ActionResult Index(int employeeId, string employeeName)
+        public ActionResult Index(int EmployeeID, string FullName)
         {
             
 
-            var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == employeeId && e.FullName == employeeName);
+            var employee = db.Employees.FirstOrDefault(e => e.EmployeeID == EmployeeID && e.FullName == FullName);
 
             if (employee != null)
             {
-               
-                return RedirectToAction("EmployeeTasks", new { employeeId });
+                if (CheckCredentials(employee.EmployeeID, employee.FullName))
+                {
+                    return RedirectToAction("EmployeeTasks", new { employeeId = employee.EmployeeID });
+                }
+                else
+                {
+                    ModelState.AddModelError("EmployeeID", "Invalid employee ID or name.");
+                    ModelState.AddModelError("FullName", "Invalid employee ID or name.");
+                }
             }
             else
             {
-               
-                ModelState.AddModelError("", "Invalid employee ID or name.");
-                return View();
+                ModelState.AddModelError("EmployeeID", "Employee not found.");
             }
+
+            return View();
         }
+
+        //    if (employee != null)
+        //    {
+
+        //        return RedirectToAction("EmployeeTasks", new { employeeId });
+        //    }
+        //    else
+        //    {
+
+        //        ModelState.AddModelError("", "Invalid employee ID or name.");
+        //        return View();
+        //    }
+        //}
+
 
         public ActionResult Logout()
         {
